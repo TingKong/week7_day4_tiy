@@ -1,28 +1,21 @@
-﻿using System.Data.Entity;
+﻿using System;
+using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Net;
+using System.Web;
 using System.Web.Mvc;
 
 namespace StudentApp.Controllers
 {
-    public class StudInfoController : Controller
+    public class CoursesController : Controller
     {
         SchoolAppEntities1 db = new SchoolAppEntities1();
 
-        // GET: StudInfo
+        // GET: Courses
         public ActionResult Index()
         {
-            //var studinfo = from stud_detail in db.Students
-            //               join stuNcours in db.StuCourses on stud_detail.Id equals stuNcours.StudentID
-            //               join cour_detail in db.Courses on stuNcours.CourseID equals cour_detail.ID
-            //               select new StudentApp.Models.StudInfo
-            //               {
-            //                   SI = stud_detail
-
-            //               };
-
-            return View(db.Students.ToList());
-
+            return View(db.Courses.ToList());
         }
 
         public ActionResult Details(int? id)
@@ -31,30 +24,31 @@ namespace StudentApp.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Student studentinfo = db.Students.Find(id);
-            if (studentinfo == null)
+            Cours courseinfo = db.Courses.Find(id);
+            if (courseinfo == null)
             {
                 return HttpNotFound();
             }
-            return View(studentinfo);
+            return View(courseinfo);
         }
 
         public ActionResult Create()
         {
             return View();
         }
+        // POST: CustomerHistory/Create
         [HttpPost]
 
-        public ActionResult Create([Bind(Include = "Id,StudentName")] Student studentinfo)
+        public ActionResult Create([Bind(Include = "ID,CourseName,CourseDesc")] Cours courseinfo)
         {
             if (ModelState.IsValid)
             {
-                db.Students.Add(studentinfo);
+                db.Courses.Add(courseinfo);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
-            return View(studentinfo);
+            return View(courseinfo);
         }
 
         public ActionResult Edit(int? id)
@@ -64,49 +58,49 @@ namespace StudentApp.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
 
-            Student studentinfo = db.Students.Find(id);
-            if (studentinfo == null)
+            Cours courseinfo = db.Courses.Find(id);
+            if (courseinfo == null)
             {
                 return HttpNotFound();
             }
 
-            return View(studentinfo);
+            return View(courseinfo);
         }
 
+        // POST: CustomerHistory/Edit/5
         [HttpPost]
-        public ActionResult Edit([Bind(Include = "id,StudentName")] Student studentinfo)
+        public ActionResult Edit([Bind(Include = "ID,CourseName,CourseDesc")] Cours courseinfo)
         {
             if (ModelState.IsValid)
             {
 
-                db.Entry(studentinfo).State = EntityState.Modified;
+                db.Entry(courseinfo).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            return View(studentinfo);
+            return View(courseinfo);
         }
-
-
         public ActionResult Delete(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Student studentinfo = db.Students.Find(id);
-            if (studentinfo == null)
+            Cours courseinfo = db.Courses.Find(id);
+            if (courseinfo == null)
             {
                 return HttpNotFound();
             }
-            return View(studentinfo);
+            return View(courseinfo);
         }
 
+        // POST: CustomerHistory/Delete/5
         [HttpPost, ActionName("Delete")]
 
         public ActionResult DeleteConfirmed(int id)
         {
-            Student studentinfo = db.Students.Find(id);
-            db.Students.Remove(studentinfo);
+            Cours courseinfo = db.Courses.Find(id);
+            db.Courses.Remove(courseinfo);
             db.SaveChanges();
             return RedirectToAction("Index");
         }
@@ -122,5 +116,5 @@ namespace StudentApp.Controllers
     }
 
 
-}
 
+}
