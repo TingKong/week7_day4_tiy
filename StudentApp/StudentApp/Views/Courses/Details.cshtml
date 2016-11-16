@@ -1,4 +1,4 @@
-﻿@model StudentApp.Cours
+﻿@model StudentApp.Models.CourseInfo
 
 @{
     ViewBag.Title = "Details";
@@ -12,24 +12,36 @@
     <hr />
     <dl class="dl-horizontal">
         <dt>
-            @Html.DisplayNameFor(model => model.CourseName)
+            @Html.DisplayNameFor(model => model.CID.CourseName)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.CourseName)
+            @Html.DisplayFor(model => model.CID.CourseName)
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.CourseDesc)
+            @Html.DisplayNameFor(model => model.CID.CourseDesc)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.CourseDesc)
+            @Html.DisplayFor(model => model.CID.CourseDesc)
         </dd>
+
+@foreach (var item in Model.SID)
+{
+    <dt>
+        @Html.DisplayNameFor(model => item.StudentName)
+    </dt>
+
+        <dd>
+            @Html.DisplayFor(model => item.StudentName)
+        </dd>
+}
+
 
     </dl>
 </div>
 <p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.ID }) |
+    @Html.ActionLink("Edit", "Edit", new { id = Model.CID.ID }) |
     @Html.ActionLink("Back to List", "Index")
 </p>

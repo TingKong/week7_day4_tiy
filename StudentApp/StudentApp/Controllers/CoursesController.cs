@@ -5,6 +5,8 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using StudentApp.Models;
+
 
 namespace StudentApp.Controllers
 {
@@ -20,16 +22,21 @@ namespace StudentApp.Controllers
 
         public ActionResult Details(int? id)
         {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Cours courseinfo = db.Courses.Find(id);
-            if (courseinfo == null)
-            {
-                return HttpNotFound();
-            }
-            return View(courseinfo);
+            var showStud = from stuNcours in db.StuCourses
+                                 join stud_detail in db.Students on stuNcours.StudentID equals stud_detail.Id
+                                 where stuNcours.CourseID == id
+                                 select stud_detail;
+
+            var showCour = (from cour_detail in db.Courses
+                            where cour_detail.ID == id
+                            select cour_detail).FirstOrDefault();
+
+
+            CourseInfo newDataInfo = new CourseInfo();
+            newDataInfo.SID = showStud.ToList();
+            newDataInfo.CID = showCour;
+        
+            return View(newDataInfo);
         }
 
         public ActionResult Create()

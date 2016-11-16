@@ -8,8 +8,14 @@ namespace StudentApp.Models
 {
     public class CourseInfo
     {
+        //[DisplayName("Course")]
+        //public List <Cours> CI { get; set; }
+
         [DisplayName("Course")]
-        public List <Cours> CI { get; set; }
+        public Cours CID { get; set; }
+
+        [DisplayName("Students")]
+        public List<Student>  SID { get; set; }
 
     }
 }

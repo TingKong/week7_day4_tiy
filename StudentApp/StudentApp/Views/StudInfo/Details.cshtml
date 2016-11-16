@@ -1,4 +1,4 @@
-﻿@model StudentApp.Models.studentwCourses
+﻿@model StudentApp.Models.studentwCourses 
 
 @{
     ViewBag.Title = "Details";
@@ -20,16 +20,26 @@
         </dd>
         <dt>
             @Html.DisplayNameFor(model => model.SID.StudentName)
-        </dt>
 
+
+        </dt>
         <dd>
             @Html.DisplayFor(model => model.SID.StudentName)
-        </dd>
-        <dd>
-            @Html.DisplayFor(model => model.CID.CourseName)
+
+
         </dd>
 
-       
+     
+@foreach (var item in Model.CID)
+{
+        <dt>
+            @Html.DisplayNameFor(model => item.CourseName)
+        </dt>
+        <dd>
+            @Html.DisplayFor(modelItem => item.CourseName)
+        </dd>
+
+}
 
     </dl>
 </div>
