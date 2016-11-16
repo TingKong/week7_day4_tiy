@@ -1,4 +1,4 @@
-﻿@model StudentApp.Student
+﻿@model IEnumerable<StudentApp.Models.studentwCourses>
 
 @{
     ViewBag.Title = "Details";
@@ -12,18 +12,21 @@
     <hr />
     <dl class="dl-horizontal">
         <dt>
-            @Html.DisplayNameFor(model => model.Id)
+            @Html.DisplayNameFor(model => model.SID.Id)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.Id)
+            @Html.DisplayFor(model => model.SID.Id)
         </dd>
         <dt>
-            @Html.DisplayNameFor(model => model.StudentName)
+            @Html.DisplayNameFor(model => model.SID.StudentName)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.StudentName)
+            @Html.DisplayFor(model => model.SID.StudentName)
+        </dd>
+        <dd>
+            @Html.DisplayFor(model => model.CID.CourseName)
         </dd>
 
        
@@ -31,6 +34,6 @@
     </dl>
 </div>
 <p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.Id  }) |
+    @Html.ActionLink("Edit", "Edit", new { id = Model.SID.Id  }) |
     @Html.ActionLink("Back to List", "Index")
 </p>

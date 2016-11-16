@@ -13,17 +13,14 @@
           <Property Name="CourseName" Type="varchar" MaxLength="100" Nullable="false" />
           <Property Name="CourseDesc" Type="varchar" MaxLength="100" />
         </EntityType>
-        <!--Errors Found During Generation:
-warning 6002: The table/view 'SchoolApp.dbo.StuCourse' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="StuCourse">
           <Key>
             <PropertyRef Name="StudentID" />
             <PropertyRef Name="CourseID" />
-            
           </Key>
           <Property Name="StudentID" Type="int" Nullable="false" />
           <Property Name="CourseID" Type="int" Nullable="false" />
-          <Property Name="Misc" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Misc" Type="varchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="Student">
           <Key>
@@ -58,14 +55,8 @@ warning 6002: The table/view 'SchoolApp.dbo.StuCourse' does not have a primary k
         </Association>
         <EntityContainer Name="SchoolAppModel1StoreContainer">
           <EntitySet Name="Courses" EntityType="Self.Courses" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="StuCourse" EntityType="Self.StuCourse" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Student" EntityType="Self.Student" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="StuCourse" EntityType="Self.StuCourse" store:Type="Tables" store:Schema="dbo">
-            <DefiningQuery>SELECT 
-    [StuCourse].[StudentID] AS [StudentID], 
-    [StuCourse].[CourseID] AS [CourseID], 
-    [StuCourse].[Misc] AS [Misc]
-    FROM [dbo].[StuCourse] AS [StuCourse]</DefiningQuery>
-          </EntitySet>
           <AssociationSet Name="FK_StuCourse_Courses" Association="Self.FK_StuCourse_Courses">
             <End Role="Courses" EntitySet="Courses" />
             <End Role="StuCourse" EntitySet="StuCourse" />
@@ -95,7 +86,7 @@ warning 6002: The table/view 'SchoolApp.dbo.StuCourse' does not have a primary k
           </Key>
           <Property Name="StudentID" Type="Int32" Nullable="false" />
           <Property Name="CourseID" Type="Int32" Nullable="false" />
-          <Property Name="Misc" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Misc" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="Cours" Relationship="Self.FK_StuCourse_Courses" FromRole="StuCourse" ToRole="Courses" />
           <NavigationProperty Name="Student" Relationship="Self.FK_StuCourse_Student" FromRole="StuCourse" ToRole="Student" />
         </EntityType>

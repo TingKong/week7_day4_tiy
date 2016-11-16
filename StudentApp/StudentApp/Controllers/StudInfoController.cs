@@ -1,7 +1,9 @@
-﻿using System.Data.Entity;
+﻿using StudentApp.Models;
+using System.Data.Entity;
 using System.Linq;
 using System.Net;
 using System.Web.Mvc;
+
 
 namespace StudentApp.Controllers
 {
@@ -27,6 +29,21 @@ namespace StudentApp.Controllers
 
         public ActionResult Details(int? id)
         {
+            var studentCourses = from stuNcours in db.StuCourses
+                                 join cour_detail in db.Courses on stuNcours.CourseID equals cour_detail.ID
+                                 where stuNcours.StudentID == id
+                                 select cour_detail;
+
+            var showStud = from stuNcours in db.StuCourses
+                           join stud_detail in db.Students on stuNcours.StudentID equals stud_detail.Id
+                           where stud_detail.Id == id
+                           select stud_detail;
+
+
+            studentwCourses models = new studentwCourses();
+            models.CID = studentCourses.ToList();
+            models.SID = showStud;
+
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -74,7 +91,7 @@ namespace StudentApp.Controllers
         }
 
         [HttpPost]
-        public ActionResult Edit([Bind(Include = "id,StudentName")] Student studentinfo)
+        public ActionResult Edit([Bind(Include = "Id,StudentName")] Student studentinfo)
         {
             if (ModelState.IsValid)
             {

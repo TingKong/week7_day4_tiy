@@ -34,18 +34,17 @@ namespace StudentApp.Controllers
         }
 
         [HttpPost]
-        [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "StudentID,CourseID")] StuCourse schoolinfo)
         {
             if (ModelState.IsValid)
             {
+                //schoolinfo.Misc = "1";
                 db.StuCourses.Add(schoolinfo);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
-            ViewBag.StudentID = new SelectList(db.Students, "Id", "StudentName");
-            ViewBag.CourseID = new SelectList(db.Courses, "ID", "CourseName");
+          
             return View(schoolinfo);
         }
 

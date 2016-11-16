@@ -15,6 +15,7 @@ namespace StudentApp.Models
         [DisplayName("Course")]
         public Cours CI { get; set; }
 
+        
 
 
         SchoolAppEntities1 db = new SchoolAppEntities1();
