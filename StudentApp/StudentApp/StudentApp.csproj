@@ -229,6 +229,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\CourseInfo.cs" />
+    <Compile Include="Models\Partialclass.cs" />
     <Compile Include="Models\School.cs" />
     <Compile Include="Models\studentwCourses.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
