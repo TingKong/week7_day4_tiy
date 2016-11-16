@@ -34,26 +34,25 @@ namespace StudentApp.Controllers
                                  where stuNcours.StudentID == id
                                  select cour_detail;
 
-            var showStud = from stuNcours in db.StuCourses
-                           join stud_detail in db.Students on stuNcours.StudentID equals stud_detail.Id
-                           where stud_detail.Id == id
-                           select stud_detail;
+            var showStud = (from stud in db.Students
+                            where stud.Id == id
+                            select stud).FirstOrDefault();
 
 
-            studentwCourses models = new studentwCourses();
-            models.CID = studentCourses.ToList();
-            models.SID = showStud;
+            studentwCourses newDataInfo = new studentwCourses();
+            newDataInfo.CID = studentCourses.ToList();
+            newDataInfo.SID = showStud;
 
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Student studentinfo = db.Students.Find(id);
-            if (studentinfo == null)
-            {
-                return HttpNotFound();
-            }
-            return View(studentinfo);
+            //if (id == null)
+            //{
+            //    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            //}
+            //Student studentinfo = db.Students.Find(id);
+            //if (studentinfo == null)
+            //{
+            //    return HttpNotFound();
+            //}
+            return View(newDataInfo);
         }
 
         public ActionResult Create()
